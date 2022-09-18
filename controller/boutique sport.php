@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="style boutique sport.css">
+    <link rel="stylesheet" href="styleboutique.css">
     <title>BOUTIQUE</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
         <a href="#" class="logo"><span>A</span>ll4<img src="logo sport.jfif" alt=""><span>S</span>port </a>
         <h1></h1>
         <div class="onglets">
-            <a href="#acceuil">Acceuil</a>
+            <a href="#accueil">Acceuil</a>
             <a href="#presentation">Presentation</a>
             <a href="#produits">Produits</a>
             <a href="#services">Services</a>
