@@ -13,7 +13,7 @@
 <?php
 
 function getConnexion(){
-    $dsn = 'mysql:dbname=robotic;host=127.0.0.1:3307';
+    $dsn = 'mysql:dbname=bddALL4SPORT;host=127.0.0.1:3307';
     try {
         $bdd = new PDO($dsn, "root", "");
         return $bdd;

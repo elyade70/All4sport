@@ -8,6 +8,22 @@
     <title>RAYON</title>
 </head>
 <body>
+
+<?php
+
+function getConnexion(){
+    $dsn = 'mysql:dbname=bddALL4SPORT;host=127.0.0.1:3307';
+    try {
+        $bdd = new PDO($dsn, "root", "");
+        return $bdd;
+    }catch (Exception $e){
+        die ('DB Error : '.$e->getMessage());
+    }
+}  
+        
+?>   
+
+
 <nav>
 
 <a href="#" class="logo"><span>A</span>ll4<img src="logo sport.jfif" alt=""><span>S</span>port </a>
@@ -47,11 +63,11 @@
             <tbody>
                 <tr>
 
-                    <td> nike <p> 50£ boutique de LILLE</p></td>
-                    <td> nike</td>
-                    <td>x</td>
-                    <td>X</td>
-                    <td>X</td>
+                    <td> nike <p> 50£ boutique de LILLE</p><a href="http://localhost:8888/boutique sport.php"></td>
+                    <td> nike <p> 50£ boutique de LILLE</p><a href="http://localhost:8888/rayon.php"></td>
+                    <td>x <p> 50£ boutique de LILLE</p></td>
+                    <td>X <p> 50£ boutique de LILLE</p></td>
+                    <td>X <p> 50£ boutique de LILLE</p></td>
                 </tr>
                 <tr>
                     <td> adidas</td>
