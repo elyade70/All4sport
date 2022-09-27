@@ -1,38 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>SITE MARCHAND</title>
-</head>
-
-<body>
-
-    <nav>
-
-        <a href="#" class="logo"><span>A</span>ll4<img src="logo sport.jfif" alt=""><span>S</span>port </a>
-        <h1></h1>
-        <div class="onglets">
-            <a href="#acceuil">Acceuil</a>
-            <a href="#presentation">Presentation</a>
-            <a href="#produits">Produits</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </div>
-
-    </nav>
-
-    <header>
-        <section class="acceuil" id="acceuil">
-            <div class="contenu"></div>
-        </section>
-        <button><a href="http://localhost:8888/client.php">CLIENT</a></button>
-    </header>
-
-
+<?php
+include "../View/header.php"
+?>
 
     <section class="main" id="presentation">
         <div class="content">
@@ -88,12 +56,7 @@
 
 </body>
 <script type="text/JavaScript">
-    function page_redirect(){
-    Onclick(){
-        window.location.href = ‘http://localhost:8888/boutique sport.php’;
-        <button onclick = "my function">clique</button>
-    }
-}
+   
 </script>
 
 </html>
