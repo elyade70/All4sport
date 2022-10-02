@@ -2,100 +2,82 @@
 include "../View/header.php"
 ?>
 
-<style>
-table{
-  border: 2px
-  solid black;
 
-}
-th{
-  border: 1px
-  solid black;
-}
-tr{
-  border: 2px
-  solid black;
-}
-</style>
- <table>
+<div class='container' >
+    <div class='row'>
 
-<thead>
-<th>reference_produit</th>
-<th>nom_fournisseur</th>
-<th>cout_unitaire</th>
-<th>description</th>
-<th>stock_internet</th>
-<th>stock_magasin</th>
-<th>lieu_stockage</th>
+    
 
-</thead>
-<tbody>
-<tr>
-  
-<?php
+        <?php
+
+        $zi="";
 if (is_array($produits) || is_object($produits))
 {
   foreach ($produits as $produit) {
+    $i=0;
+    $i++;
+$photo=0;
+    if($i==3){
+        echo"   <div class='row'>";
+        $i=0;
+    }
 
-// echo "<tr>";
-// echo "<td>".$produit["reference_produit"]."</td>";
-// echo "<td>".$produit["nom_fournisseur"]."</td>";
-// echo "<td>".$produit["cout_unitaire"]."</td>";
-// echo "<td>".$produit["description"]."</td>";
-// echo "<td>".$produit["stock_internet"]."</td>";
-// echo "<td>".$produit["stock_magasin"]."</td>";
-// echo "<td>".$produit["lieu_stockage"]."</td>";
+$zi=$zi."i";
+  
+echo"<div class='card' style='width: 18rem;'>" ;
+   echo" <img class='card-img-top' src='../view/$zi.jpg' alt=" .$produit['description']." >"; 
+    echo"<div class='card-body'>" ;
+       echo" <h5 class='card-title'> " .$produit['description']. "</h5>"; 
+       echo" <p class='card-text' name='id'> "."réf :".$produit['reference_produit']."</p>" ;
+       echo" <p class='card-text'>"."Fourni par ".$produit["nom_fournisseur"]."</p>"; 
+     echo"   <p class='card-text'>".$produit['cout_unitaire']." €"."</p>"; 
+     echo"   <a href='../controller/bddproduits.php?id='".$produit['reference_produit']."' class='btn btn-primary'><i class='flaticon-eye'>eee</i> </a>" ;
+  echo"  </div>" ;
+echo"</div> ";
 
-// echo"</tr>";
-}
-} 
 
- ?>
-
- <div class="container">
-    <div class="row">
-         <div class="col s4"  id="brr"  class="col m4" >
-                 <div class="card horizontal" >
-                               <?php echo" <h3>" .$produit["description"]."</h3>";?>
-                     <div class="card-image">
-                     <img class="fit-picture"  src="../view/bouteille.jfif" alt="bouteille test">
-
-                   
-                        <div class="card-content">
-                        <?php
-  echo "<p>"."réf :".$produit["reference_produit"]."</p>";
-echo "<p>"."Fourni par ".$produit["nom_fournisseur"]."</p>";
-echo "<p>".$produit["cout_unitaire"]."€"."</p>";
-
+  }}
 ?>
+
+</div>
+</div>
+
 <style>
 
-#brr{
+.row {
+    display: flex;
+    space-between:
+}
+
+#brr {
     border: solid 1px white;
     padding: 5px;
     border-radius: 5px;
-    
     display: flex;
 }
-.paragraphe{
-   display: block;
+
+.paragraphe {
+    display: block;
 }
 
-p{
+p {
     font-weight: bold;
-} 
-  </style>
-                             </div>
-                        </div>
-             </div>
-             
-                            
-             </div>
-     </div>
-</div> 
-</tr>
-</tbody>
- </table> 
-</body>
-</html>
+}
 
+img {
+    width: 100%
+}
+
+.container {
+    border: solid 1px white;
+    padding: 25px;
+    border-radius: 5px;
+    display: flex;
+    margin-left:250px;
+    text-align:center;
+}
+
+</style>
+</body>
+
+</html>

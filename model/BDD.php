@@ -25,6 +25,15 @@ class Bdd
     $query->execute();
     return $query->fetchAll();
   }
+  function GetOneProduit($id){
+   $sql= "SELECT * FROM `produits` WHERE reference_produit= '$id'";
+   $query = $this->bdd->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
+    echo"ekip";
+    // header("Refresh:0");
+   // header("Location: ../controller/bddproduits.php?id=$id" );
+  }
   function getRayons(){
     $sql = "SELECT * FROM rayon";
     $query =  $this->bdd->prepare($sql);

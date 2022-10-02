@@ -5,7 +5,13 @@ require_once "../Model/BDD.php";
 $bdd = new Bdd();
 
 if (isset($_GET['id'])) {
-  // Récupération d'un produit spécifique...
+  $id = $_GET['id'];
+ $produits=$bdd->GetOneProduit($id);
+
+ require "../View/view_produits.php";
+
+
+
 } else {
   $produits = $bdd->getProduits();
 
