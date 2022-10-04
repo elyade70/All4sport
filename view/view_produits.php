@@ -6,6 +6,7 @@ include "../View/header.php"
 <div class='container' >
     <div class='row'>
 
+
     
 
         <?php
@@ -14,6 +15,7 @@ include "../View/header.php"
 if (is_array($produits) || is_object($produits))
 {
   foreach ($produits as $produit) {
+
     $i=0;
     $i++;
 $photo=0;
@@ -34,9 +36,10 @@ echo"<div class='card' style='width: 18rem;'>" ;
      echo"   <a href='../controller/bddproduits.php?id='".$produit['reference_produit']."' class='btn btn-primary'><i class='flaticon-eye'>eee</i> </a>" ;
   echo"  </div>" ;
 echo"</div> ";
-
+// 
 
   }}
+ 
 ?>
 
 </div>
@@ -46,7 +49,7 @@ echo"</div> ";
 
 .row {
     display: flex;
-    space-between:
+
 }
 
 #brr {

@@ -31,6 +31,7 @@ class Bdd
     $query->execute();
     return $query->fetchAll();
     echo"ekip";
+    header("Location: ../controller/bddproduits.php?id=$id");
     // header("Refresh:0");
    // header("Location: ../controller/bddproduits.php?id=$id" );
   }
