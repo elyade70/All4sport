@@ -9,9 +9,10 @@ if (isset($_GET['id'])) {
 echo "ee:$id";
   $produits=$bdd->GetOneProduit($id);
  echo"ekip";
+ 
 
 
- require "../View/view_produits.php";
+ require "../View/detailproduit.php";
  
 
 } else {

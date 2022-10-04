@@ -19,10 +19,12 @@ if (is_array($produits) || is_object($produits))
     $i=0;
     $i++;
 $photo=0;
+
     if($i==3){
         echo"   <div class='row'>";
         $i=0;
     }
+
 
 $zi=$zi."i";
   
@@ -33,15 +35,24 @@ echo"<div class='card' style='width: 18rem;'>" ;
        echo" <p class='card-text' name='id'> "."réf :".$produit['reference_produit']."</p>" ;
        echo" <p class='card-text'>"."Fourni par ".$produit["nom_fournisseur"]."</p>"; 
      echo"   <p class='card-text'>".$produit['cout_unitaire']." €"."</p>"; 
-     echo"   <a href='../controller/bddproduits.php?id='".$produit['reference_produit']."' class='btn btn-primary'><i class='flaticon-eye'>eee</i> </a>" ;
-  echo"  </div>" ;
+     echo"   <a href='../controller/bddproduits.php?id=". $produit['reference_produit']."'  class='btn btn-primary' id='détails'>Détails</a>" ;
+  
+  
+     if ($produit["stock_magasin"]==0 && $produit["stock_internet"]==0){ 
+        echo"<div class='alert alert-danger' role='alert'>";
+       echo" Ce produit n'est plus disponible";
+       echo"</div> ";
+        }else{
+            echo"   <a href='../controller/bddproduits.php?id=". $produit['reference_produit']."'  class='btn btn-primary' >Acheter</a>" ;
+
+        }
+     echo"  </div>" ;
 echo"</div> ";
-// 
 
-  }}
- 
+
+  }
+}
 ?>
-
 </div>
 </div>
 

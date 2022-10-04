@@ -32,6 +32,11 @@ tr{
 <tr>
 <?php
 
+$zi="";
+if (is_array($produits) || is_object($produits))
+{
+foreach ($produits as $produit) {
+
 echo "<tr>";
 echo "<td>".$produit["reference_produit"]."</td>";
 echo "<td>".$produit["nom_fournisseur"]."</td>";
@@ -42,4 +47,5 @@ echo "<td>".$produit["stock_magasin"]."</td>";
 echo "<td>".$produit["lieu_stockage"]."</td>";
 
 echo"</tr>";
+}}
 ?>
