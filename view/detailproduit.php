@@ -39,12 +39,12 @@ foreach ($produits as $produit) {
 
 echo "<tr>";
 echo "<td>".$produit["reference_produit"]."</td>";
-echo "<td>".$produit["nom_fournisseur"]."</td>";
+echo "<td>".$produit["fournisseur_nom"]."</td>";
 echo "<td>".$produit["cout_unitaire"]."</td>";
-echo "<td>".$produit["description"]."</td>";
-echo "<td>".$produit["stock_internet"]."</td>";
-echo "<td>".$produit["stock_magasin"]."</td>";
-echo "<td>".$produit["lieu_stockage"]."</td>";
+echo "<td>".$produit["description_produit"]."</td>";
+echo "<td>".$produit["quantite_stock_internet"]."</td>";
+echo "<td>".$produit["quantite_stock_magasin"]."</td>";
+echo "<td>".$produit["lieu"]."</td>";
 
 echo"</tr>";
 }}
