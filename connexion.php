@@ -46,7 +46,7 @@ function getConnexion(){
 </header>
 <section>
 <div class="container">
-        <form method="POST" action="inscriptionsport.php">
+        <form method="POST" action="rayon.php">
 
         <div class="separation"></div>
       <div class="corps-formulaire">
@@ -65,7 +65,7 @@ function getConnexion(){
           </div>
             <br>
             <div class="pied-formulaire" align="center">
-        <button> <a href="http://localhost:8888/ALL4SPORT/inscriptionsport.php"></a> Se connecter</button>
+        <button> <a href="http://localhost:8888/ALL4SPORT/rayon.php"></a> Se connecter</button>
 
         </form>
 

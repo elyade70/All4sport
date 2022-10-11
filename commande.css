@@ -52,32 +52,9 @@ nav .onglets {
     margin-left: 300px;
 }
 
-button {
-    margin-bottom: 50px;
-    font-size: 30px;
-    font-family: 'Playfair Display', serif;
-    cursor: pointer;
-    text-align: center;
-    align-content: center;
-    background-color: whitesmoke;
 
-}
 
-.main {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.main h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 50px;
-    align-content: center;
-    text-align: center;
-    border: 10px;
-
-}
 
 footer {
     margin-top: 300px;

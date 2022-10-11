@@ -34,7 +34,7 @@
 <?php
 
 function getConnexion(){
-    $dsn = 'mysql:dbname=all4sport;host=127.0.0.1';
+    $dsn = 'mysql:dbname=all4sport;host=127.0.0.1:3307';
     try {
         $bdd = new PDO($dsn, "root", "");
         return $bdd;

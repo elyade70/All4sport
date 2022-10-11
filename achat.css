@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
 
 
+
 body {
     margin: 0px;
     padding: 0px;
@@ -73,8 +74,6 @@ button {
 .main h1 {
     font-family: 'Playfair Display', serif;
     font-size: 50px;
-    align-content: center;
-    text-align: center;
     border: 10px;
 
 }
