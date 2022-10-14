@@ -68,34 +68,51 @@ class Bdd
     echo("ekiio");
     var_dump($query->errorInfo());
   }
-  function addAchat($idproduit){
-
-$insert1 = "INSERT INTO achat(id_achat, achat_libelle, fk_statut) VALUES(:idachat,:libelle,:statut);";
-$insert2="INSERT INTO achete(date, fk_cl, fk_ac) VALUES (:dateI,:client,:idachat);"; 
-$insert3="INSERT INTO contient(fk_pr, fk_ac) VALUES (:produit,:idachat); ";
+  function creerPanier($idproduit,$idpanier){
+  
+$insert1 = "INSERT INTO panier (id_panier) VALUES (:idpanier);";
+$insert2="INSERT INTO `cree`(`fk_pa`,`fk_cl`) VALUES (:idpanier,:client);"; 
+$insert3="INSERT INTO contient (fk_pa,fk_pr) VALUES (:idpanier,:produit); ";
 
     $d = new DateTime();
     $query1 =  $this->bdd->prepare($insert1);
     $query2 =  $this->bdd->prepare($insert2);
     $query3 =  $this->bdd->prepare($insert3);
-    $query1->execute(array( 
-                           ":idachat" => 2,
-                           ":statut" => 1,
-                           ":libelle" => "testt", ));
- $query2->execute(array(  ":idachat" => 2,
-                          ":client" => 'ELYSPO12345678901',
-                          ":dateI" => $d->format("Y-m-d H:i:s") ));
-   $query3->execute(array(  ":produit" => $idproduit,
-                             ":idachat" => 2,
-  ));
+    $query1->execute(array(  ":idpanier" => $idpanier ));
+ $query2->execute(array(  ":idpanier" => $idpanier ,":client" => 'CLI12345671' ));
+   $query3->execute(array(  ":idpanier" => $idpanier ,":produit" => $idproduit ));
     var_dump($query1->errorInfo());
     var_dump($query2->errorInfo());
     var_dump($query3->errorInfo());
     echo"ekipdddd";
- 
+
 
   }
- 
+  function getNbPanier(){
+$sql = "SELECT count(fk_cl) as nbart FROM panier
+Inner join contient on id_panier=fk_pa
+Inner join cree on id_panier=cree.fk_pa;";
+$query =  $this->bdd->prepare($sql);
+$query->execute();
+return $query->fetchAll();
+
+  }
+  function getPanier(){
+    $sql = "SELECT produits.reference_produit,cout_unitaire,description_produit,quantite_stock_internet,photo,sum(cout_unitaire) as somme_totale 
+    from all5sport.panier
+    inner join cree on id_panier=fk_pa
+    inner join contient on id_panier=contient.fk_pa
+    inner join produits on contient.fk_pr=reference_produit
+    inner join photo on reference_produit=photo.fk_pr
+    group by (contient.fk_pr)
+    ;
+    
+    
+     ";
+    $query =  $this->bdd->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
+  }
  
 }
    

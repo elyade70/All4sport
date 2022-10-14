@@ -1,16 +1,26 @@
 <?php
 include "../View/header.php"
 ?>
-<div id=panier>
-<span class="fa fa-shopping-basket fa-5x"></span>
-<p>Mon panier </p>
-</div>
-<div class='container' >
+
+<?php
+
+  
+
+    if (is_array($paniers) || is_object($paniers))
+{
+  foreach ($paniers as $panier) {
+    echo " <a href='../controller/panier.php'";
+echo"<div id=panier>";
+echo"<span class='fa fa-shopping-basket fa-5x'> " .$panier['nbart'] ."</span>";
+echo"<p>Mon panier </p>";
+echo"</div>";
+echo"</a>";
+  }
+}
+
+    ?>
+<div class='container'>
     <div class='row'>
-
-
-    
-
         <?php
 
   
@@ -31,7 +41,7 @@ if (is_array($produits) || is_object($produits))
 echo"<div class='card' style='width: 18rem;'>" ;
    echo" <img class='card-img-top' src=".$produit['photo']."  alt=" .$produit['description_produit']." >"; 
     echo"<div class='card-body'>" ;
-       echo" <h5 class='card-title'> " .$produit['description_produit']. "</h5>"; 
+        echo" <h5 class='card-title'> " .$produit['description_produit']. "</h5>"; 
        echo" <p class='card-text' name='id'> "."réf :".$produit['reference_produit']."</p>" ;
        echo" <p class='card-text'>"."Fourni par ".$produit["fournisseur_nom"]."</p>"; 
      echo"   <p class='card-text'>".$produit['cout_unitaire']." €"."</p>"; 
@@ -43,7 +53,7 @@ echo"<div class='card' style='width: 18rem;'>" ;
        echo" Ce produit n'est plus disponible";
        echo"</div> ";
         }else{
-            echo"   <a href='../controller/panierproduit.php'  class='btn btn-primary' >Ajouter au panier</a>" ;
+            echo"   <a href='../controller/panierproduit.php?id=". $produit['reference_produit']."'  class='btn btn-primary' >Ajouter au panier</a>" ;
 
             // echo"   <a href='../controller/bddproduits.php?id=". $produit['reference_produit']."'  class='btn btn-primary' >Acheter</a>" ;
 
@@ -55,26 +65,20 @@ echo"</div> ";
   }
 }
 ?>
-</div>
+    </div>
 </div>
 
 <style>
+.btn {
+    background-color: black;
+    border-color: red;
+}
 
 .row {
     display: flex;
 
 }
 
-#brr {
-    border: solid 1px white;
-    padding: 5px;
-    border-radius: 5px;
-    display: flex;
-}
-
-.paragraphe {
-    display: block;
-}
 
 p {
     font-weight: bold;
@@ -89,16 +93,16 @@ img {
     padding: 25px;
     border-radius: 5px;
     display: flex;
-    margin-left:250px;
-    text-align:center;
-}
-#panier{
-    width: 100px;
-    margin-left:1230px;
-    background-color:#5b6dcd;
-    border-radius: 25% 10%;
+    margin-left: 250px;
+    text-align: center;
 }
 
+#panier {
+    width: 100px;
+    margin-left: 1230px;
+    background-color: #5b6dcd;
+    border-radius: 25% 10%;
+}
 </style>
 </body>
 
