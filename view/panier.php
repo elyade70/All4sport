@@ -9,10 +9,7 @@ $somme=0;
 if (is_array($panierss) || is_object($panierss))
 {
   foreach ($panierss as $panier) {
-// foreach($panier['reference_produit']){
 
-  echo "somme principale= " . $somme. "\n";
-// }
     $i=0;
     $i++;
 
@@ -20,6 +17,11 @@ if (is_array($panierss) || is_object($panierss))
         echo"   <div class='row'>";
         $i=0;
     }
+
+
+  echo "somme principale= " . $somme. "\n";
+// }
+
    
 $somme=$somme+$panier['somme_totale'];
 echo "sommeee   ". $somme;
@@ -38,6 +40,7 @@ echo"<div class='card style='width: 18rem;'>";
  echo" <div class='card-body'>";
     echo"<a href='#' class='card-link'>Acheter</a>";
     echo"<a href='../controller/bddproduits.php?id=". $panier['reference_produit']."' class='card-link'>Voir les détails</a>";
+    echo"<a href='../controller/panierproduit.php?idpanier=". $panier['id_panier']."' class='card-link'>Supprimer le produit du panier</a>";
     echo" </div>";
     echo"</div>";
   }}

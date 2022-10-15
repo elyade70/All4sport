@@ -4,5 +4,5 @@ require_once "../Model/BDD.php";
 
 $bdd = new Bdd();
 
-$panierss=$bdd->getPanier();
-require "../view/panier.php";
+$paniers=$bdd->getPanier();
+require "../view/view_produits.php";

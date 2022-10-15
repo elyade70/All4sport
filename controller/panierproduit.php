@@ -13,3 +13,11 @@ if (isset($_GET['id'])) {
   echo"ekip";
   header("Location: ../controller/bddproduits.php");
 } 
+if(isset($_GET['idpanier'])){
+  $idpanier=$_GET['idpanier'];
+  echo"ekip";
+  $panier = $bdd->Deletepanier($idpanier);
+
+  header("Location: ../controller/bddproduits.php");
+
+}
