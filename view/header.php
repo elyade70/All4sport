@@ -13,10 +13,10 @@
 </head>
 <body>
 <nav>
-        <a href="#" class="logo"><span>A</span>ll4<img src="../view/logo sport.jfif" alt=""><span>S</span>port </a>
+        <a href="../view/index.php" class="logo"><span>A</span>ll4<img src="../view/logo sport.jfif" alt=""><span>S</span>port </a>
         <h1></h1>
         <div class="onglets">
-            <a href="#accueil">Acceuil</a>
+            <a href="../view/index.php">Acceuil</a>
             <a href="#presentation">Presentation</a>
             <a href="../controller/bddproduits.php">Produits</a>
             <a href="#services">Services</a>

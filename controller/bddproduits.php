@@ -14,7 +14,8 @@ echo "ee:$id";
  
 } else {
   $produits = $bdd->getProduits();
-  $paniers=$bdd->getNbPanier();
-
+  $nbpaniers=$bdd->getNbPanier();
+  $paniers=$bdd->getPanier();
+  $nbcommandes=$bdd->getNbCommandes();
   require "../View/view_produits.php";
 }

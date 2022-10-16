@@ -6,9 +6,9 @@ include "../View/header.php"
 <?php
 
 $somme=0;
-if (is_array($panierss) || is_object($panierss))
+if (is_array($paniers) || is_object($paniers))
 {
-  foreach ($panierss as $panier) {
+  foreach ($paniers as $panier) {
 
     $i=0;
     $i++;
@@ -23,7 +23,7 @@ if (is_array($panierss) || is_object($panierss))
 // }
 
    
-$somme=$somme+$panier['somme_totale'];
+$somme=$somme+$panier['prix_total'];
 echo "sommeee   ". $somme;
 echo"<div class='card style='width: 18rem;'>";
   echo"<img id='img' class='card-img-top' src='".$panier['photo']."'  alt='".$panier['description_produit']."'>";
@@ -33,14 +33,14 @@ echo"<div class='card style='width: 18rem;'>";
  echo" </div>";
  echo" <ul class='list-group list-group-flush'>";
    echo" <li class='list-group-item'>".$panier['reference_produit']."</li>";
-   echo" <li class='list-group-item'>"."Somme totale :".$panier['somme_totale']."</li>";
-   echo" <li class='list-group-item'>"."quantité :".$panier['somme_totale']/$panier['cout_unitaire']."</li>";
+   echo" <li class='list-group-item'>"."Somme totale :".$panier['prix_total']."</li>";
+   echo" <li class='list-group-item'>"."quantité :".$panier['prix_total']/$panier['cout_unitaire']."</li>";
 
   echo"</ul>";
  echo" <div class='card-body'>";
-    echo"<a href='#' class='card-link'>Acheter</a>";
+    echo"<a href='../controller/panierproduit.php?idachatdelete=". $panier['id_achat']."' class='card-link'>Acheter</a>";
     echo"<a href='../controller/bddproduits.php?id=". $panier['reference_produit']."' class='card-link'>Voir les détails</a>";
-    echo"<a href='../controller/panierproduit.php?idpanier=". $panier['id_panier']."' class='card-link'>Supprimer le produit du panier</a>";
+    echo"<a href='../controller/panierproduit.php?idachat=". $panier['id_achat']."' class='card-link'>Supprimer le produit du panier</a>";
     echo" </div>";
     echo"</div>";
   }}

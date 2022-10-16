@@ -68,20 +68,19 @@ class Bdd
     echo("ekiio");
     var_dump($query->errorInfo());
   }
-  function creerPanier($idproduit,$idpanier){
+function creerPanier($idproduit,$idachat){
   
-$insert1 = "INSERT INTO panier (id_panier) VALUES (:idpanier);";
-$insert2="INSERT INTO `cree`(`fk_pa`,`fk_cl`) VALUES (:idpanier,:client);"; 
-$insert3="INSERT INTO contient (fk_pa,fk_pr) VALUES (:idpanier,:produit); ";
+  $insert1="INSERT INTO `achat`(`id_achat`, `achat_libelle`, `fk_statut`, `prix_total`) VALUES (:idachat,'',1,:idachat)"; 
+  $insert2="INSERT INTO `contient`(`fk_ac`, `fk_pr`) VALUES (:idachat,:produit);"; 
+  $insert3="INSERT INTO `cree`(`fk_ac`, `fk_cl`, `date`) VALUES (:idachat,:client,:dateI);";
 
     $d = new DateTime();
     $query1 =  $this->bdd->prepare($insert1);
     $query2 =  $this->bdd->prepare($insert2);
     $query3 =  $this->bdd->prepare($insert3);
-    $query1->execute(array(  ":idpanier" => $idpanier ));
- $query2->execute(array(  ":idpanier" => $idpanier ,":client" => 'CLI12345671' ));
-   $query3->execute(array(  ":idpanier" => $idpanier ,":produit" => $idproduit ));
-    var_dump($query1->errorInfo());
+   $query1->execute(array(  ":idachat" => $idachat ));
+   $query2->execute(array(  ":idachat" => $idachat ,":produit" => $idproduit ));
+   $query3->execute(array(  ":idachat" => $idachat ,":client" => 'CLI12345670',  ":dateI" => $d->format("Y-m-d H:i:s") ));
     var_dump($query2->errorInfo());
     var_dump($query3->errorInfo());
     echo"ekipdddd";
@@ -89,42 +88,45 @@ $insert3="INSERT INTO contient (fk_pa,fk_pr) VALUES (:idpanier,:produit); ";
 
   }
   function getNbPanier(){
-$sql = "SELECT count(fk_cl) as nbart FROM panier
-Inner join contient on id_panier=fk_pa
-Inner join cree on id_panier=cree.fk_pa;";
-$query =  $this->bdd->prepare($sql);
-$query->execute();
-return $query->fetchAll();
+    $sql = "SELECT count(id_achat) as nbart FROM cree
+    join achat on fk_ac=id_achat
+    join client on fk_cl=code_client
+    join contient on contient.fk_ac=id_achat
+    join produits on contient.fk_pr=produits.reference_produit 
+    where fk_statut=1";
+  $query =  $this->bdd->prepare($sql);
+  $query->execute();
+  return $query->fetchAll();
 
   }
-  function getPanier(){
-    $sql = "SELECT id_achat,fk_statut,prix_total,fk_cl,telephone,fk_pr,libelle_statut,photo,description_produit,cout_unitaire,count(0) as nbart FROM all5sport.achat
+function getPanier(){
+    $sql = "SELECT id_achat,fk_statut,prix_total,fk_cl,telephone,reference_produit,libelle_statut,photo,description_produit,cout_unitaire,sum(cout_unitaire) as prix_total FROM achat
     join cree on fk_ac=id_achat
     join client on fk_cl=code_client
     join contient on contient.fk_ac=id_achat
     join produits on contient.fk_pr=produits.reference_produit
     join statut on id_statut=fk_statut
-    join photo on produits.reference_produit=photo.fk_prrr
-    group by id_achat;
+    join photo on produits.reference_produit=photo.fk_prr
+    where fk_statut=1
+    group by  fk_pr;
     
      ";
     $query =  $this->bdd->prepare($sql);
     $query->execute();
     return $query->fetchAll();
   }
-  function Deletepanier($idpanier){
+function Deletepanier($idachat){
   
-    $delete1 = " DELETE from cree where fk_pa=:idpanier;";
-    $delete2="DELETE from contient where fk_pa=:idpanier;"; 
-    $delete3="DELETE from panier where id_panier=:idpanier; ";
-       
-
+    $delete1 = "DELETE FROM `contient` WHERE fk_ac==:idachat;";
+    $delete2=" DELETE FROM `cree` WHERE fk_ac=:idachat;"; 
+    $delete3=" DELETE FROM `achat` WHERE id_achat=:idachat; ";
+    
         $query1 =  $this->bdd->prepare($delete1);
         $query2 =  $this->bdd->prepare($delete2);
         $query3 =  $this->bdd->prepare($delete3);
-        $query1->execute(array(  ":idpanier" => $idpanier ));
-     $query2->execute(array(  ":idpanier" => $idpanier  ));
-       $query3->execute(array(  ":idpanier" => $idpanier));
+        $query1->execute(array(  ":idachat" => $idachat ));
+     $query2->execute(array(  ":idachat" => $idachat  ));
+       $query3->execute(array(  ":idachat" => $idachat));
         var_dump($query1->errorInfo());
         var_dump($query2->errorInfo());
         var_dump($query3->errorInfo());
@@ -132,5 +134,49 @@ return $query->fetchAll();
     
     
       }
+      function Creerachat($idachat){
+  
+        $update="UPDATE achat
+        SET fk_statut = 2
+        WHERE id_achat = :idachat;"; 
+      
+     
+          $query1 =  $this->bdd->prepare($update);
+         
+         $query1->execute(array(  ":idachat" => $idachat ));
+
+          var_dump($query1->errorInfo());
+          echo"ekipdddd";
+      
+      
+        }
+        function getCommandes(){
+          $sql = "SELECT id_achat,libelle_statut,prix_total,fk_cl,telephone,reference_produit,libelle_statut,photo,description_produit,cout_unitaire,sum(cout_unitaire) as prix_total FROM achat
+          join cree on fk_ac=id_achat
+          join client on fk_cl=code_client
+          join contient on contient.fk_ac=id_achat
+          join produits on contient.fk_pr=produits.reference_produit
+          join statut on id_statut=fk_statut
+          join photo on produits.reference_produit=photo.fk_prr
+          where fk_statut=2
+          group by  fk_pr;
+          
+           ";
+          $query =  $this->bdd->prepare($sql);
+          $query->execute();
+          return $query->fetchAll();
+        }
+        function getNbCommandes(){
+          $sql = "SELECT count(id_achat) as nbart FROM cree
+          join achat on fk_ac=id_achat
+          join client on fk_cl=code_client
+          join contient on contient.fk_ac=id_achat
+          join produits on contient.fk_pr=produits.reference_produit 
+          where fk_statut=2";
+        $query =  $this->bdd->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
+      
+        }
 }
    

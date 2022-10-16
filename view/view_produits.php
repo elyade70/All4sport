@@ -6,19 +6,37 @@ include "../View/header.php"
 
   
 
-    if (is_array($paniers) || is_object($paniers))
+    if (is_array($nbpaniers) || is_object($nbpaniers))
 {
-  foreach ($paniers as $panier) {
+  foreach ($nbpaniers as $nbpanier) {
     echo " <a href='../controller/panier.php'";
 echo"<div id=panier>";
-echo"<span class='fa fa-shopping-basket fa-5x'> " .$panier['nbart'] ."</span>";
+echo"<div id=nbarticle> " .$nbpanier['nbart'] ." </div>";
+echo"<span class='fa fa-shopping-basket fa-5x'></span>";
 echo"<p>Mon panier </p>";
 echo"</div>";
 echo"</a>";
   }
 }
+?>
+<?php
+if (is_array($nbcommandes) || is_object($nbcommandes))
+{
+  foreach ($nbcommandes as $nbcommande) {
+
+   echo " <a href='../controller/commandesproduits.php'";
+   echo"<div id=commandes>";
+   echo"<div id=nbarticle> " .$nbcommande['nbart'] ." </div>";
+   echo" <span class='fa fa-folder fa-5x'></span>";
+   echo"<p>Mes commandes  </p>";
+   echo"</div>";
+   echo"</a>";
+
+  }}
 
     ?>
+    
+
 <div class='container'>
     <div class='row'>
         <?php
@@ -69,6 +87,18 @@ echo"</div> ";
 </div>
 
 <style>
+    #commandes{
+        width: 100px;
+    margin-left: 130px;
+    background-color: #5b6dcd;
+    border-radius: 25% 10%;
+    color:black;
+    }
+    #nbarticle{
+    font-size:40px;
+    color:blue;
+    margin-left:60px;
+    }
 .btn {
     background-color: black;
     border-color: red;
@@ -99,9 +129,10 @@ img {
 
 #panier {
     width: 100px;
-    margin-left: 1230px;
+    margin-left: 130px;
     background-color: #5b6dcd;
     border-radius: 25% 10%;
+    color:black;
 }
 </style>
 </body>
