@@ -91,7 +91,8 @@ function creerPanier($idproduit,$idachat){
     $sql = "SELECT count(0) as nbart FROM all5sport.achat 
     Inner join all5sport.produits on fk_pr=reference_produit
     where fk_cl='CLI12345671'
-    order by fk_pr;";
+    order by fk_pr;
+    ";
   $query =  $this->bdd->prepare($sql);
   $query->execute();
   return $query->fetchAll();
@@ -160,12 +161,11 @@ function Deletepanier($idachat){
           return $query->fetchAll();
         }
         function getNbCommandes(){
-          $sql = "SELECT count(id_achat) as nbart FROM cree
-          join achat on fk_ac=id_achat
-          join client on fk_cl=code_client
-          join contient on contient.fk_ac=id_achat
-          join produits on contient.fk_pr=produits.reference_produit 
-          where fk_statut=2";
+          $sql = "SELECT count(0) as nbart FROM all5sport.achat 
+          Inner join all5sport.produits on fk_pr=reference_produit
+          where fk_cl='CLI12345671'
+          order by fk_pr
+          ";
         $query =  $this->bdd->prepare($sql);
         $query->execute();
         return $query->fetchAll();
