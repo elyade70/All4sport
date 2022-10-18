@@ -11,10 +11,10 @@
 
 
 <nav>
-        <a href="#" class="logo"><span>A</span>ll4<img src="logo sport.jfif" alt=""><span>S</span>port </a>
+        <a href="http://localhost:80/ALL4SPORT/index.html" class="logo"><span>A</span>ll4<img src="logo sport.jfif" alt=""><span>S</span>port </a>
         <h1></h1>
         <div class="onglets">
-            <a href="#acceuil">Acceuil</a>
+            <a href="http://localhost/ALL4SPORT/index.html">Acceuil</a>
             <a href="#presentation">Presentation</a>
             <a href="#produits">Produits</a>
             <a href="#services">Services</a>
@@ -22,6 +22,13 @@
         </div>
 
     </nav>
+
+    <header>
+            <section class="acceuil" id="acceuil"><a href="http://localhost/ALL4SPORT/index.html">Acceuil</a>
+                <div class="contenu"></div>
+            </section>
+            <button><a href="http://localhost:8888/ALL4SPORT/client.php">CLIENT</a></button>
+    </header>
 
 
 <section>
@@ -52,14 +59,14 @@
 
           <div class="">
             <label>Adresse</label>
-            <input type="text" />
+            <input type="text" name="adresse"/>
           </div>
           <br>
 
 
           <div class="">
             <label>Téléphone</label>
-            <input type="int" />
+            <input type="int" name="telephone" />
           </div>
           <br>
 
@@ -72,7 +79,7 @@
           <br>
           <br>
 
-          <button><a href="http://localhost:8888/connexion.php"></a> S'inscrire</button>
+          <button><a href="http://localhost:8888/connexion.php"></a>S'inscrire</button>
             
 
         </form>
