@@ -88,12 +88,10 @@ function creerPanier($idproduit,$idachat){
 
   }
   function getNbPanier(){
-    $sql = "SELECT count(id_achat) as nbart FROM cree
-    join achat on fk_ac=id_achat
-    join client on fk_cl=code_client
-    join contient on contient.fk_ac=id_achat
-    join produits on contient.fk_pr=produits.reference_produit 
-    where fk_statut=1";
+    $sql = "SELECT count(0) as nbart FROM all5sport.achat 
+    Inner join all5sport.produits on fk_pr=reference_produit
+    where fk_cl='CLI12345671'
+    order by fk_pr;";
   $query =  $this->bdd->prepare($sql);
   $query->execute();
   return $query->fetchAll();
@@ -151,15 +149,10 @@ function Deletepanier($idachat){
       
         }
         function getCommandes(){
-          $sql = "SELECT id_achat,libelle_statut,prix_total,fk_cl,telephone,reference_produit,libelle_statut,photo,description_produit,cout_unitaire,sum(cout_unitaire) as prix_total FROM achat
-          join cree on fk_ac=id_achat
-          join client on fk_cl=code_client
-          join contient on contient.fk_ac=id_achat
-          join produits on contient.fk_pr=produits.reference_produit
-          join statut on id_statut=fk_statut
-          join photo on produits.reference_produit=photo.fk_prr
-          where fk_statut=2
-          group by  fk_pr;
+          $sql = "SELECT count(0) as nbart FROM all5sport.achat 
+          Inner join all5sport.produits on fk_pr=reference_produit
+          where fk_cl='CLI12345671'
+          order by fk_pr;
           
            ";
           $query =  $this->bdd->prepare($sql);

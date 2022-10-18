@@ -8,7 +8,9 @@ include "../View/header.php"
 $somme=0;
 if (is_array($paniers) || is_object($paniers))
 {
+  
   foreach ($paniers as $panier) {
+  
 
     $i=0;
     $i++;
@@ -18,7 +20,7 @@ if (is_array($paniers) || is_object($paniers))
         $i=0;
     }
 
-
+   
   echo "somme principale= " . $somme. "\n";
 // }
 
@@ -43,6 +45,7 @@ echo"<div class='card style='width: 18rem;'>";
     echo"<a href='../controller/panierproduit.php?idachat=". $panier['id_achat']."' class='card-link'>Supprimer le produit du panier</a>";
     echo" </div>";
     echo"</div>";
+
   }}
 
   ?>
