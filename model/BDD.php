@@ -16,155 +16,142 @@ class Bdd
       echo $e->getMessage();
     }
   }
+function getUser($mail,$pwd){
+  $sql = " SELECT * FROM `client` where email = '$mail'  AND password = '$pwd'
+  ;"; 
+  $query =  $this->bdd->prepare($sql);
+  $query->execute();
+  return $query->fetchAll();
+
+}
+
+function getOneUser($codeclient){
+  $sql = " SELECT * FROM `client` WHERE code_client='$codeclient';
+  ;"; 
+  $query =  $this->bdd->prepare($sql);
+  $query->execute();
+  return $query->fetchAll();
+
+}
 
 
-   function getProduits()
+
+
+
+   function getProduitsByRayon($idrayon)
   {
     $sql = "SELECT reference_produit,cout_unitaire,description_produit,quantite_stock_internet,fournisseur_nom,quantite_stock_magasin,photo,photo_libelle FROM produits 
     Inner join photo on reference_produit=photo.fk_prr 
     Inner join fournisseur on fk_fo=id_fournisseur 
-    inner join eststock on reference_produit=eststock.fk_pr;
+    inner join eststock on reference_produit=eststock.fk_pr
+    JOIN rayon on fk_ray=id_rayon
+    where fk_ray='$idrayon'
+    group by reference_produit;
     
     ;"; 
     $query =  $this->bdd->prepare($sql);
     $query->execute();
     return $query->fetchAll();
   }
-  function GetOneProduit($id){
-   $sql= "SELECT reference_produit,cout_unitaire,description_produit,quantite_stock_internet,fournisseur_nom,quantite_stock_magasin,photo,photo_libelle,lieu
+  
+  function getProduits() {
+    $sql = "SELECT reference_produit,cout_unitaire,description_produit,quantite_stock_internet,fournisseur_nom,quantite_stock_magasin,photo,photo_libelle FROM produits 
+    Inner join photo on reference_produit=photo.fk_prr 
+    Inner join fournisseur on fk_fo=id_fournisseur 
+    inner join eststock on reference_produit=eststock.fk_pr
+    JOIN rayon on fk_ray=id_rayon
+ 
+    group by reference_produit;
+    
+    ;"; 
+    $query =  $this->bdd->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
+  }
+  function GetOneProduit($idproduit){
+   $sql= "SELECT photo_id,reference_produit,cout_unitaire,description_produit,quantite_stock_internet,fournisseur_nom,quantite_stock_magasin,photo,photo_libelle,lieu
     FROM produits 
    Inner join photo on reference_produit=photo.fk_prr 
    Inner join fournisseur on fk_fo=id_fournisseur 
    inner join eststock on reference_produit=eststock.fk_pr
    inner join stock on fk_sto=stock_id
-   WHERE reference_produit= '$id'";
+   WHERE reference_produit= '$idproduit'";
    $query = $this->bdd->prepare($sql);
     $query->execute();
     return $query->fetchAll();
     header("Refresh:0");
 
   }
+  function getPhoto($idproduit){
+    $sql="SELECT * from photo 
+    Join produits on fk_prr=reference_produit
+    where fk_prr='$idproduit';";
+        $query =  $this->bdd->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
+      } 
   function getRayons(){
-    $sql = "SELECT * FROM rayon";
+    $sql = "SELECT * FROM rayon;";
     $query =  $this->bdd->prepare($sql);
     $query->execute();
     return $query->fetchAll();
   }
-  function addproduits($fournisseur,$prix,$description,$stockonline,$storestock,$lieu,$idrayon)
-  {
-    $insert = "INSERT INTO produits ('reference_produit', 'nom_fournisseur', 'cout_unitaire', 'description', 'stock_internet', 'stock_magasin', 'lieu_stockage', 'fk_ray') 
-    VALUES(:ref, :nomfour,:prix, :descriptif:stockonline,:stockmag,:lieu,:fk_ray ) ";
-    $query =  $this->bdd->prepare($insert);
-    $query->execute(array(":ref" => $ray.$four.$res ,
-    ":nomfour" => $fournisseur,
-    ":prix" => $prix ,
-    ":descriptif" => $description ,
-    ":stockonline" => $stockonline ,
-    ":stockmag" => $storestock ,
-    ":lieu" => $lieu ,
-    ":fk_ray" => $idrayon ));
-    return $query->fetchall();
-    header('Location: http://www.google.com/');
-    echo("ekiio");
-    var_dump($query->errorInfo());
+  function getOneRayon($idrayon){
+    $sql = "SELECT * FROM `rayon` where id_rayon=$idrayon;";
+    $query =  $this->bdd->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
   }
-function creerPanier($idproduit,$idachat){
   
-  $insert1="INSERT INTO `achat`(`id_achat`, `achat_libelle`, `fk_statut`, `prix_total`) VALUES (:idachat,'',1,:idachat)"; 
-  $insert2="INSERT INTO `contient`(`fk_ac`, `fk_pr`) VALUES (:idachat,:produit);"; 
-  $insert3="INSERT INTO `cree`(`fk_ac`, `fk_cl`, `date`) VALUES (:idachat,:client,:dateI);";
-
-    $d = new DateTime();
-    $query1 =  $this->bdd->prepare($insert1);
-    $query2 =  $this->bdd->prepare($insert2);
-    $query3 =  $this->bdd->prepare($insert3);
-   $query1->execute(array(  ":idachat" => $idachat ));
-   $query2->execute(array(  ":idachat" => $idachat ,":produit" => $idproduit ));
-   $query3->execute(array(  ":idachat" => $idachat ,":client" => 'CLI12345670',  ":dateI" => $d->format("Y-m-d H:i:s") ));
-    var_dump($query2->errorInfo());
-    var_dump($query3->errorInfo());
-    echo"ekipdddd";
 
 
-  }
-  function getNbPanier(){
+  function getNbPanier($codeclient){
     $sql = "SELECT count(0) as nbart FROM all5sport.achat 
-    Inner join all5sport.produits on fk_pr=reference_produit
-    where fk_cl='CLI12345671'
-    order by fk_pr;
+    where fk_cl='$codeclient'
     ";
   $query =  $this->bdd->prepare($sql);
   $query->execute();
   return $query->fetchAll();
 
   }
-function getPanier(){
-    $sql = "SELECT id_achat,fk_statut,prix_total,fk_cl,telephone,reference_produit,libelle_statut,photo,description_produit,cout_unitaire,sum(cout_unitaire) as prix_total FROM achat
-    join cree on fk_ac=id_achat
-    join client on fk_cl=code_client
-    join contient on contient.fk_ac=id_achat
-    join produits on contient.fk_pr=produits.reference_produit
-    join statut on id_statut=fk_statut
-    join photo on produits.reference_produit=photo.fk_prr
-    where fk_statut=1
-    group by  fk_pr;
-    
-     ";
-    $query =  $this->bdd->prepare($sql);
-    $query->execute();
-    return $query->fetchAll();
-  }
-function Deletepanier($idachat){
-  
-    $delete1 = "DELETE FROM `contient` WHERE fk_ac==:idachat;";
-    $delete2=" DELETE FROM `cree` WHERE fk_ac=:idachat;"; 
-    $delete3=" DELETE FROM `achat` WHERE id_achat=:idachat; ";
-    
-        $query1 =  $this->bdd->prepare($delete1);
-        $query2 =  $this->bdd->prepare($delete2);
-        $query3 =  $this->bdd->prepare($delete3);
-        $query1->execute(array(  ":idachat" => $idachat ));
-     $query2->execute(array(  ":idachat" => $idachat  ));
-       $query3->execute(array(  ":idachat" => $idachat));
-        var_dump($query1->errorInfo());
-        var_dump($query2->errorInfo());
-        var_dump($query3->errorInfo());
 
-    
-    
-      }
-      function Creerachat($idachat){
-  
-        $update="UPDATE achat
-        SET fk_statut = 2
-        WHERE id_achat = :idachat;"; 
-      
-     
-          $query1 =  $this->bdd->prepare($update);
+      function Creerachat($idproduit,$codeclient,$prixproduit){
+        $d = new DateTime();
+        $insert="INSERT INTO `achat`(`fk_pr`, `fk_cl`, `date`, `fk_statut`, `prix`) VALUES (:idproduit,:codeclient,:dateI,1,:prix);"; 
+        $update="UPDATE `produits` SET `quantite_stock_internet`= `quantite_stock_internet`-1
+        WHERE reference_produit=':idproduit'";
+          $query1 =  $this->bdd->prepare($insert);
+          $query2 =  $this->bdd->prepare($update);
          
-         $query1->execute(array(  ":idachat" => $idachat ));
+         $query1->execute(array(  ":idproduit" => "$idproduit",
+                                    ":codeclient"=>"$codeclient",
+                                    ":dateI" => $d->format("Y-m-d H:i:s"),
+                                    ":prix"=>$prixproduit, ));
+         $query2->execute(array(  ":idproduit" => "$idproduit",
+                                    ));
+  
 
           var_dump($query1->errorInfo());
-          echo"ekipdddd";
-      
+          var_dump($query2->errorInfo());
+      echo$idproduit;
       
         }
-        function getCommandes(){
-          $sql = "SELECT count(0) as nbart FROM all5sport.achat 
-          Inner join all5sport.produits on fk_pr=reference_produit
-          where fk_cl='CLI12345671'
-          order by fk_pr;
+        function getCommandes($codeclient){
+          $sql = "SELECT * FROM all5sport.achat
+          join photo on fk_prr=fk_pr
+          join produits on reference_produit=achat.fk_pr
+          join statut on fk_statut = id_statut
+           WHERE fk_cl='$codeclient'
+           order by fk_pr; 
           
            ";
           $query =  $this->bdd->prepare($sql);
           $query->execute();
           return $query->fetchAll();
         }
-        function getNbCommandes(){
-          $sql = "SELECT count(0) as nbart FROM all5sport.achat 
-          Inner join all5sport.produits on fk_pr=reference_produit
-          where fk_cl='CLI12345671'
-          order by fk_pr
+        function getNbCommandes($codeclient){
+          $sql = "SELECT COUNT(0) as nbart from achat
+          WHERE fk_cl='$codeclient'
           ";
         $query =  $this->bdd->prepare($sql);
         $query->execute();

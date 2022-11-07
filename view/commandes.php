@@ -10,17 +10,7 @@ if (is_array($commandes) || is_object($commandes))
 {
   foreach ($commandes as $commande) {
 
-    $i=0;
-    $i++;
-
-    if($i==3){
-        echo"   <div class='row'>";
-        $i=0;
-    }
-
-
-
-
+    $i=1;
    
 
 echo"<div class='card style='width: 18rem;'>";
@@ -30,9 +20,10 @@ echo"<div class='card style='width: 18rem;'>";
    echo" <p class='card-text'>".$commande['cout_unitaire']." €</p>";
  echo" </div>";
  echo" <ul class='list-group list-group-flush'>";
- echo" <li class='list-group-item'>"."Somme totale :".$commande['prix_total']."</li>";
 
-   echo" <li class='list-group-item'>"."quantité :".$commande['prix_total']/$commande['cout_unitaire']."</li>";
+   echo" <li class='list-group-item'>"."quantité :".$i."</li>";
+   echo" <li class='list-group-item'>"."Somme totale :".$commande['prix']."</li>";
+
    echo" <li class='list-group-item'>"."statut de la commande: "."<span class='statut'>".$commande['libelle_statut']." </span></li>";
 
   echo"</ul>";

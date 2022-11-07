@@ -1,42 +1,10 @@
 <?php
 include "../View/header.php"
-?>
 
-<?php
-
-  
-
-    if (is_array($nbpaniers) || is_object($nbpaniers))
-{
-  foreach ($nbpaniers as $nbpanier) {
-    echo " <a href='../controller/panier.php'";
-echo"<div id=panier>";
-echo"<div id=nbarticle> " .$nbpanier['nbart'] ." </div>";
-echo"<span class='fa fa-shopping-basket fa-5x'></span>";
-echo"<p>Mon panier </p>";
-echo"</div>";
-echo"</a>";
-  }
-}
 ?>
 <?php
-if (is_array($nbcommandes) || is_object($nbcommandes))
-{
-  foreach ($nbcommandes as $nbcommande) {
 
-   echo " <a href='../controller/commandesproduits.php'";
-   echo"<div id=commandes>";
-   echo"<div id=nbarticle> " .$nbcommande['nbart'] ." </div>";
-   echo" <span class='fa fa-folder fa-5x'></span>";
-   echo"<p>Mes commandes  </p>";
-   echo"</div>";
-   echo"</a>";
-
-  }}
-
-    ?>
-    
-
+?>
 <div class='container'>
     <div class='row'>
         <?php
@@ -71,9 +39,10 @@ echo"<div class='card' style='width: 18rem;'>" ;
        echo" Ce produit n'est plus disponible";
        echo"</div> ";
         }else{
-            echo"   <a href='../controller/panierproduit.php?id=". $produit['reference_produit']."'  class='btn btn-primary' >Ajouter au panier</a>" ;
+            echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."  '  class='btn btn-primary' id='achete'>acheter</a>" ;
 
-            // echo"   <a href='../controller/bddproduits.php?id=". $produit['reference_produit']."'  class='btn btn-primary' >Acheter</a>" ;
+            echo"   <a href='../controller/paniercontroller.php?idproduit=". $produit['reference_produit']."&prix=" .$produit['cout_unitaire']."&photo=".$produit['photo']." '  class='btn btn-primary' >Ajouter au panier</a>" ;
+
 
         }
      echo"  </div>" ;
@@ -87,21 +56,10 @@ echo"</div> ";
 </div>
 
 <style>
-    #commandes{
-        width: 100px;
-    margin-left: 130px;
-    background-color: #5b6dcd;
-    border-radius: 25% 10%;
-    color:black;
-    }
-    #nbarticle{
-    font-size:40px;
-    color:blue;
-    margin-left:60px;
-    }
+
 .btn {
-    background-color: black;
-    border-color: red;
+    background-color: yellow;
+    border-color: green;
 }
 
 .row {
@@ -119,21 +77,16 @@ img {
 }
 
 .container {
-    border: solid 1px white;
+ 
     padding: 25px;
     border-radius: 5px;
     display: flex;
     margin-left: 250px;
     text-align: center;
+   background-color: #EDEBA0;
 }
 
-#panier {
-    width: 100px;
-    margin-left: 130px;
-    background-color: #5b6dcd;
-    border-radius: 25% 10%;
-    color:black;
-}
+
 </style>
 </body>
 

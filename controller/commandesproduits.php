@@ -1,18 +1,16 @@
 <?php
-
+session_start();
 require_once "../Model/BDD.php";
 
-$bdd = new Bdd();
 
-// if (isset($_GET['id'])) {
-//     $commandes=$bdd->getNbPanier();
-//     $id = $_GET['id'];
-//   echo "ee:$id";
-//     $produits=$bdd->GetOneProduit($id);
-//    echo"ekip";
-//    require "../View/detailproduit.php";
-   
-//   }
-  $commandes=$bdd->getCommandes();
+
+
+$bdd = new Bdd();
+$codeclient=$_SESSION['codeclient'];
+echo $codeclient;
+$nbpaniers=$bdd->getNbPanier($codeclient);
+$rayons=$bdd->getRayons();
+$nbcommandes=$bdd->getNbCommandes($codeclient);
+  $commandes=$bdd->getCommandes($codeclient);
   require "../View/commandes.php";
 ?>
