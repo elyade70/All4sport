@@ -18,20 +18,21 @@ echo"<div class='card style='width: 18rem;'>";
   echo"<div class='card-body'>";
    echo" <h5 class='card-title'>".$commande['description_produit']."</h5>";
    echo" <p class='card-text'>".$commande['cout_unitaire']." €</p>";
- echo" </div>";
- echo" <ul class='list-group list-group-flush'>";
+
 
    echo" <li class='list-group-item'>"."quantité :".$i."</li>";
    echo" <li class='list-group-item'>"."Somme totale :".$commande['prix']."</li>";
 
    echo" <li class='list-group-item'>"."statut de la commande: "."<span class='statut'>".$commande['libelle_statut']." </span></li>";
+   echo" <p class='card-text'>". "Date:  " ." ".$commande['date']." €</p>";
 
-  echo"</ul>";
- echo" <div class='card-body'>";
+
     echo"<a href='#' class='card-link'>Commander à nouveau</a>";
+    echo"<br>";
     echo"<a href='../controller/bddproduits.php?id=". $commande['reference_produit']."' class='card-link'>Voir les détails</a>";
-    echo" </div>";
+
     echo"</div>";
+    echo" </div>";
   }}
 
   ?>
@@ -40,6 +41,9 @@ echo"<div class='card style='width: 18rem;'>";
 
   
 <style>
+    .card{
+        width:270px;
+    }
 .btn{
     margin-left : 700px;
 }
@@ -79,5 +83,6 @@ p {
 span.statut{
     font-weight:bold;
 }
+*
 
 </style>

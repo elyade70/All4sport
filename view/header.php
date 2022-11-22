@@ -1,19 +1,23 @@
 
-<?php
-if (isset ($_GET['codeclient'])) {
-    session_start();
-    $_SESSION = [
-        'email' => $user['email'],
-        'tel'=> $user['telephone'],
-        'datenaissance'=> $user['date_naissance'],
-    'codeclient'=> $user['code_client'], ];
-}
 
+<?php
+if (!isset ($_SESSION['codeclient'])) {
+
+    // session_start();
+    // $_SESSION = [
+    //     'email' => $user['email'],
+    //     'tel'=> $user['telephone'],
+    //a     'datenaissance'=> $user['date_naissance'],
+    // 'codeclient'=> $user['code_client'], ];
+   header("Location:../view/erreur.php");
+
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <a href="../controller/connexioncontroller.php">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,8 +41,9 @@ if (isset ($_GET['codeclient'])) {
            <li> <button id='onglet' class="rayon" href="#">Rayons</li>
            </ul>
 </div>
-       
+   
 <?php
+
 if (is_array($rayons) || is_object($rayons))
 {
 foreach ($rayons as $rayon) {
@@ -181,4 +186,5 @@ color:black;
 margin-bottom :30px;
 
 }
+
     </style>

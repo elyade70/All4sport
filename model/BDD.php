@@ -69,18 +69,25 @@ function getOneUser($codeclient){
     return $query->fetchAll();
   }
   function GetOneProduit($idproduit){
-   $sql= "SELECT photo_id,reference_produit,cout_unitaire,description_produit,quantite_stock_internet,fournisseur_nom,quantite_stock_magasin,photo,photo_libelle,lieu
-    FROM produits 
-   Inner join photo on reference_produit=photo.fk_prr 
-   Inner join fournisseur on fk_fo=id_fournisseur 
-   inner join eststock on reference_produit=eststock.fk_pr
-   inner join stock on fk_sto=stock_id
-   WHERE reference_produit= '$idproduit'";
+   $sql= "SELECT photo_id,reference_produit,cout_unitaire,description_produit,quantite_stock_internet,fournisseur_nom,photo,photo_libelle
+    FROM produits
+     Inner join photo on reference_produit=photo.fk_prr 
+     Inner join fournisseur on fk_fo=id_fournisseur 
+     WHERE reference_produit='$idproduit'";
    $query = $this->bdd->prepare($sql);
     $query->execute();
     return $query->fetchAll();
     header("Refresh:0");
 
+  }
+  function getLieuProduit($idproduit){
+    $sql= "SELECT * FROM `eststock`
+    join stock on fk_sto=stock_id
+    join produits on fk_pr=reference_produit
+    where reference_produit='$idproduit'";
+   $query = $this->bdd->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
   }
   function getPhoto($idproduit){
     $sql="SELECT * from photo 
@@ -115,10 +122,10 @@ function getOneUser($codeclient){
 
   }
 
-      function Creerachat($idproduit,$codeclient,$prixproduit){
+      function CreerachatMagasin($idproduit,$codeclient,$prixproduit,$qte){
         $d = new DateTime();
-        $insert="INSERT INTO `achat`(`fk_pr`, `fk_cl`, `date`, `fk_statut`, `prix`) VALUES (:idproduit,:codeclient,:dateI,1,:prix);"; 
-        $update="UPDATE `produits` SET `quantite_stock_internet`= `quantite_stock_internet`-1
+        $insert="INSERT INTO `achat`(`fk_pr`, `fk_cl`, `date`, `fk_statut`, `prix`,`quantite`) VALUES (:idproduit,:codeclient,:dateI,1,:prix,:quantite);"; 
+        $update="UPDATE `eststock` SET `quantite_stock_magasin`= `quantite_stock_magasin`-1;
         WHERE reference_produit=':idproduit'";
           $query1 =  $this->bdd->prepare($insert);
           $query2 =  $this->bdd->prepare($update);
@@ -126,16 +133,39 @@ function getOneUser($codeclient){
          $query1->execute(array(  ":idproduit" => "$idproduit",
                                     ":codeclient"=>"$codeclient",
                                     ":dateI" => $d->format("Y-m-d H:i:s"),
-                                    ":prix"=>$prixproduit, ));
+                                    ":prix"=>$prixproduit,
+                                  ":quantite"=>$qte, ));
          $query2->execute(array(  ":idproduit" => "$idproduit",
                                     ));
   
 
           var_dump($query1->errorInfo());
           var_dump($query2->errorInfo());
-      echo$idproduit;
+    
       
         }
+        function CreerachatInternet($idproduit,$codeclient,$prixproduit,$qte){
+          $d = new DateTime();
+          $insert="INSERT INTO `achat`(`fk_pr`, `fk_cl`, `date`, `fk_statut`, `prix`,`quantite`) VALUES (:idproduit,:codeclient,:dateI,1,:prix,:quantite);"; 
+          $update="UPDATE `produits` SET `quantite_stock_internet`= `quantite_stock_internet`-1;
+          WHERE reference_produit=':idproduit'";
+            $query1 =  $this->bdd->prepare($insert);
+            $query2 =  $this->bdd->prepare($update);
+           
+           $query1->execute(array(  ":idproduit" => "$idproduit",
+                                      ":codeclient"=>"$codeclient",
+                                      ":dateI" => $d->format("Y-m-d H:i:s"),
+                                      ":prix"=>$prixproduit, 
+                                    ":quantite"=>$qte));
+           $query2->execute(array(  ":idproduit" => "$idproduit",
+                                      ));
+    
+  
+            var_dump($query1->errorInfo());
+            var_dump($query2->errorInfo());
+      
+        
+          }
         function getCommandes($codeclient){
           $sql = "SELECT * FROM all5sport.achat
           join photo on fk_prr=fk_pr

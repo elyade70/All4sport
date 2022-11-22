@@ -17,6 +17,7 @@ if (isset($_GET['id'])) {
   $rayons=$bdd->getRayons();
   $photos=$bdd->getPhoto($idproduit);
   $produits=$bdd->GetOneProduit($idproduit);
+  $lieux=$bdd->getLieuProduit($idproduit);
  require "../View/detailproduit.php";
  
 } else if(isset($_GET['idrayon'])){

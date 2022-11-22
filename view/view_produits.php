@@ -2,9 +2,7 @@
 include "../View/header.php"
 
 ?>
-<?php
 
-?>
 <div class='container'>
     <div class='row'>
         <?php
@@ -32,31 +30,54 @@ echo"<div class='card' style='width: 18rem;'>" ;
        echo" <p class='card-text'>"."Fourni par ".$produit["fournisseur_nom"]."</p>"; 
      echo"   <p class='card-text'>".$produit['cout_unitaire']." €"."</p>"; 
      echo"   <a href='../controller/bddproduits.php?id=". $produit['reference_produit']."'  class='btn btn-primary' id='détails'>Détails</a>" ;
-  
+
+
   
      if ($produit["quantite_stock_magasin"]==0 && $produit["quantite_stock_internet"]==0){ 
         echo"<div class='alert alert-danger' role='alert'>";
        echo" Ce produit n'est plus disponible";
        echo"</div> ";
-        }else{
-            echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."  '  class='btn btn-primary' id='achete'>acheter</a>" ;
 
-            echo"   <a href='../controller/paniercontroller.php?idproduit=". $produit['reference_produit']."&prix=" .$produit['cout_unitaire']."&photo=".$produit['photo']." '  class='btn btn-primary' >Ajouter au panier</a>" ;
+        } if ($produit["quantite_stock_magasin"] == $produit["quantite_stock_internet"]  ){ 
+            echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."&internet=".true."  '  class='btn btn-primary' id='achete'>acheter</a>" ;
+
 
 
         }
-     echo"  </div>" ;
-echo"</div> ";
 
+   
 
-  }
+    if($produit["quantite_stock_magasin"] > $produit["quantite_stock_internet"]){
+
+        echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."&magasin=".true."   '  class='btn btn-primary' id='achete'>acheter</a>" ;
+
+        echo"<div class='alert alert-info' role='alert'>";
+        echo" Ce produit n'est  disponible qu'en magasin";
+        echo"</div> ";
+                }
+                if($produit["quantite_stock_magasin"] <$produit["quantite_stock_internet"]){
+              
+                    echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."&internet=".true."   '  class='btn btn-primary' id='achete'>acheter</a>" ;
+                    echo"<div class='alert alert-success' role='alert'>";
+                    echo" Ce produit est  disponible en stock Internet";
+                    echo"</div> ";
+            
+                            }
+                            echo"  </div>" ;
+                            echo"</div> ";
+                        } 
+
+  
 }
+
 ?>
+
+Then you can use Toastr alerts wherever you want. You can use below method for PHP Applications.
+
     </div>
 </div>
 
 <style>
-
 .btn {
     background-color: yellow;
     border-color: green;
@@ -77,16 +98,14 @@ img {
 }
 
 .container {
- 
+
     padding: 25px;
     border-radius: 5px;
     display: flex;
     margin-left: 250px;
     text-align: center;
-   background-color: #EDEBA0;
+    background-color: #EDEBA0;
 }
-
-
 </style>
 </body>
 
