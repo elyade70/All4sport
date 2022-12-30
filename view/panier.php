@@ -1,63 +1,87 @@
 <?php
-include "../View/header.php"
+include "../View/header.php";
+require_once "../Model/BDD.php";
+
+$bdd = new Bdd();
 ?>
+<form action="../controller/panierproduit.php" method="POST">
 <div class='container' >
     <div class='row'>
+       
+
 <?php
-
+echo"<div class='all'>";
 $somme=0;
-if (is_array($paniers) || is_object($paniers))
+
+$nbArticles=count($_SESSION['panier']);
+
+
+if (is_array($test) || is_object($test))
 {
-  
-  foreach ($paniers as $panier) {
-  
+foreach($test as $ObjetPanier) {
 
-    $i=0;
-    $i++;
+    $ff=$bdd->GetOneProduit($ObjetPanier);
+    
+   
+    
 
-    if($i==3){
-        echo"   <div class='row'>";
-        $i=0;
-    }
+    // $i=0;
+    // $i++;
+
+    // if($i==3){
+    //     echo"   <div class='row'>";
+    //     $i=0;
+    // }
 
    
-  echo "somme principale= " . $somme. "\n";
+ 
 // }
+$prixtotal=0;
+$prixtotal = $prixtotal + $ff[0]['cout_unitaire'];
+$somme=$somme+$prixtotal;
 
-   
-$somme=$somme+$panier['prix_total'];
-echo "sommeee   ". $somme;
-echo"<div class='card style='width: 18rem;'>";
-  echo"<img id='img' class='card-img-top' src='".$panier['photo']."'  alt='".$panier['description_produit']."'>";
+echo"<div class='card' style='width: 18rem;'>";
+  echo"<img id='img' class='card-img-top' src='".$ff[0]['photo']."'  alt='".$ff[0]['description_produit']."'>";
   echo"<div class='card-body'>";
-   echo" <h5 class='card-title'>".$panier['description_produit']."</h5>";
-   echo" <p class='card-text'>".$panier['cout_unitaire']." €</p>";
+   echo" <h5 class='card-title'>".$ff[0]['description_produit']."</h5>";
+   echo" <p class='card-text'>".$ff[0]['cout_unitaire']." €</p>";
  echo" </div>";
  echo" <ul class='list-group list-group-flush'>";
-   echo" <li class='list-group-item'>".$panier['reference_produit']."</li>";
-   echo" <li class='list-group-item'>"."Somme totale :".$panier['prix_total']."</li>";
-   echo" <li class='list-group-item'>"."quantité :".$panier['prix_total']/$panier['cout_unitaire']."</li>";
+   echo" <li class='list-group-item'>".$ff[0]['reference_produit']."</li>";
+   echo" <li class='list-group-item'>"."Somme totale :".$prixtotal."</li>";
+   echo" <li class='list-group-item'>"."quantité :".$prixtotal/$ff[0]['cout_unitaire']."</li>";
 
-  echo"</ul>";
- echo" <div class='card-body'>";
-    echo"<a href='../controller/panierproduit.php?idachatdelete=". $panier['id_achat']."' class='card-link'>Acheter</a>";
-    echo"<a href='../controller/bddproduits.php?id=". $panier['reference_produit']."' class='card-link'>Voir les détails</a>";
-    echo"<a href='../controller/panierproduit.php?idachat=". $panier['id_achat']."' class='card-link'>Supprimer le produit du panier</a>";
-    echo" </div>";
+   echo"</ul>";
+
+    echo"<a href='../controller/panierproduit.php' class='list-group-item'>Acheter</a>";
+    echo"<a href='../controller/bddproduits.php?id=". $ff[0]['reference_produit']."' class='list-group-item'>Voir les détails</a>";
+    echo"<a href='../controller/deletepanier.php?idd=".$ff[0]['reference_produit']."' class='list-group-item'>Supprimer le produit du panier</a>";
+
     echo"</div>";
 
-  }}
-
+  }
+}
+ echo"</div>";
   ?>
   </div>
   </div>
 <?php
 
 echo" <p class='card-text' name='total'> "."Total à payer: ".$somme."</p>" ;
-echo"<button type='button' class='btn btn-primary'>Confirmer la commande</button>";
+echo"   <a href='../controller/panierproduit.php?idproduit=".$ff[0]['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$somme."&internet=".true."  '  class='btn btn-primary' id='achete'>acheter</a>" ;
+
+echo "</form>"
 ?>
   
 <style>
+  .all{
+    display:flex;
+    flex-wrap:4;
+    
+  }
+  .card{
+    width: 720px;
+  }
 .btn{
     margin-left : 700px;
 }
@@ -96,3 +120,7 @@ p {
 }
 
 </style>
+<?php
+include "../View/footer.php"
+
+?>

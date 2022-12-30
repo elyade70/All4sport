@@ -30,7 +30,7 @@ echo"<div class='card' style='width: 18rem;'>" ;
        echo" <p class='card-text'>"."Fourni par ".$produit["fournisseur_nom"]."</p>"; 
      echo"   <p class='card-text'>".$produit['cout_unitaire']." €"."</p>"; 
      echo"   <a href='../controller/bddproduits.php?id=". $produit['reference_produit']."'  class='btn btn-primary' id='détails'>Détails</a>" ;
-
+     echo"<a href='../controller/paniercontroller.php?idproduit=". $produit['reference_produit']."&prix=" .$produit['cout_unitaire']."&photo=".$produit['photo']."&libelle=" .$produit['description_produit']." '  class='btn btn-primary' >Ajouter au panier</a>";
 
   
      if ($produit["quantite_stock_magasin"]==0 && $produit["quantite_stock_internet"]==0){ 
@@ -38,12 +38,13 @@ echo"<div class='card' style='width: 18rem;'>" ;
        echo" Ce produit n'est plus disponible";
        echo"</div> ";
 
-        } if ($produit["quantite_stock_magasin"] == $produit["quantite_stock_internet"]  ){ 
-            echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."&internet=".true."  '  class='btn btn-primary' id='achete'>acheter</a>" ;
+        } 
+        // if ($produit["quantite_stock_magasin"] == $produit["quantite_stock_internet"]  ){ 
+        //     echo"   <a href='../controller/panierproduit.php?idproduit=". $produit['reference_produit']."&codeclient=". $_SESSION['codeclient']."&prixproduit=".$produit['cout_unitaire']."&internet=".true."  '  class='btn btn-primary' id='achete'>acheter</a>" ;
 
 
 
-        }
+        // }
 
    
 
@@ -72,14 +73,13 @@ echo"<div class='card' style='width: 18rem;'>" ;
 
 ?>
 
-Then you can use Toastr alerts wherever you want. You can use below method for PHP Applications.
 
     </div>
 </div>
 
 <style>
 .btn {
-    background-color: yellow;
+    background-color: red;
     border-color: green;
 }
 
@@ -104,9 +104,16 @@ img {
     display: flex;
     margin-left: 250px;
     text-align: center;
-    background-color: #EDEBA0;
+    background-color: #F5ECCD;
+
+}body{ 
+    background-color: #F5ECCD;
 }
 </style>
 </body>
 
 </html>
+<?php
+include "../View/footer.php"
+
+?>

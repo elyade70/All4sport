@@ -3,15 +3,16 @@
 <?php
 if (!isset ($_SESSION['codeclient'])) {
 
-    // session_start();
+    // 
     // $_SESSION = [
     //     'email' => $user['email'],
     //     'tel'=> $user['telephone'],
     //a     'datenaissance'=> $user['date_naissance'],
     // 'codeclient'=> $user['code_client'], ];
-   header("Location:../view/erreur.php");
+   
 
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -30,15 +31,15 @@ if (!isset ($_SESSION['codeclient'])) {
 </head>
 <body>
 <nav>
-        <a href="../view/index.php" class="logo"><span>A</span>ll4<img src="../view/logo sport.jfif" alt=""><span>S</span>port </a>
+        <a href="../view/acceuil.php" class="logo"><span>A</span>ll4<img src="../view/logo sport.jfif" alt=""><span>S</span>port </a>
         <h1></h1>
         <div class="onglets">
             <ul>
-           <li> <button id='onglet'href="../view/index.php">Acceuil</li>
-          <li> <button id='onglet'href="../controller/bddproduits.php">Produits</li>
-           <li> <button id='onglet'href="#">Services</li>
-           <li> <button id='onglet'href="#">Contact</li>
-           <li> <button id='onglet' class="rayon" href="#">Rayons</li>
+           <li> <a id='onglet'href="../view/acceuil.php">Acceuil</a></li>
+          <li> <a id='onglet'href="../controller/bddproduits.php">Produits</a></li>
+    
+           <li> <a id='onglet'href="#">Contact</a></li>
+           <li> <a id='onglet' class="rayon" href="#">Rayons</a></li>
            </ul>
 </div>
    
@@ -73,12 +74,9 @@ echo'</div>';
 
 echo " <a href='../controller/paniercontroller.php'>";
 echo"<div id='panier'>";
-if (is_array($nbpaniers) || is_object($nbpaniers))
-{
-foreach ($nbpaniers as $nbpanier) {
-echo"<div id='nbarticle'> " .$nbpanier['nbart'] ." </div>";
-}
-}
+
+echo"<div id='nbarticle'> " .count($_SESSION['panier'])." </div>";
+
 echo"<span class='fa fa-shopping-basket fa-5x'></span>";
 echo"<p>Mon panier </p>";
 echo"</div>";
@@ -112,6 +110,8 @@ echo"</div>";
 
 
 ?>
+<button onclick="playAudio()" type="button">Play Audio</button>
+
         </div>
     </nav>
 
@@ -125,6 +125,15 @@ $( ".rayon").mouseover(function() {
           $( ".ray").mouseout(function() {
   $( ".ray" ).css("display","none");
           });
+          let beat = new Audio('../view/f.mp3');
+       
+          function playAudio() { 
+            beat.play();
+} 
+
+</script>
+<script>
+  
 </script>
     <style>
 

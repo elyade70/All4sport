@@ -101,3 +101,7 @@ foreach ($lieux as $lieu) {
 ?>
 
 </div>
+<?php
+include "../View/footer.php"
+
+?>

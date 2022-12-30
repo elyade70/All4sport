@@ -13,7 +13,8 @@ if (isset($_GET['internet'])) {
      $achats = $bdd->CreerachatInternet($idproduit,$codeclient,$prixproduit,$qte);
   
   
-     header("Location:../controller/bddproduits.php");
+    //  header("Location:../controller/bddproduits.php");
+    require "../view/erreur.php";
 
 }
 }if (isset($_GET['magasin'])) {
@@ -26,5 +27,6 @@ if (isset($_GET['internet'])) {
      $achats = $bdd->CreerachatMagasin($idproduit,$codeclient,$prixproduit,$qte);
   
   
-     header("Location:../controller/bddproduits.php");
+    //  header("Location:../controller/bddproduits.php");
+    require "../view/erreur.php";
 }}

@@ -4,14 +4,15 @@ include "../View/header.php"
 <div class='container' >
     <div class='row'>
 <?php
-
+   echo"<div class='all'>";
 $somme=0;
 if (is_array($commandes) || is_object($commandes))
 {
   foreach ($commandes as $commande) {
 
-    $i=1;
-   
+  
+
+
 
 echo"<div class='card style='width: 18rem;'>";
   echo"<img id='img' class='card-img-top' src='".$commande['photo']."'  alt='".$commande['description_produit']."'>";
@@ -20,7 +21,7 @@ echo"<div class='card style='width: 18rem;'>";
    echo" <p class='card-text'>".$commande['cout_unitaire']." €</p>";
 
 
-   echo" <li class='list-group-item'>"."quantité :".$i."</li>";
+   echo" <li class='list-group-item'>"."quantité :".$commande['quantite']."</li>";
    echo" <li class='list-group-item'>"."Somme totale :".$commande['prix']."</li>";
 
    echo" <li class='list-group-item'>"."statut de la commande: "."<span class='statut'>".$commande['libelle_statut']." </span></li>";
@@ -33,14 +34,18 @@ echo"<div class='card style='width: 18rem;'>";
 
     echo"</div>";
     echo" </div>";
+   
   }}
-
+  echo" </div>";
   ?>
   </div>
   </div>
 
   
 <style>
+    .all{
+        display:flex;
+    }
     .card{
         width:270px;
     }
@@ -86,3 +91,7 @@ span.statut{
 *
 
 </style>
+<?php
+include "../View/footer.php"
+
+?>

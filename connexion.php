@@ -84,3 +84,7 @@ function getConnexion(){
 
 </body>
 </html>
+<?php
+include "../View/footer.php"
+
+?>

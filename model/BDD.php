@@ -33,7 +33,12 @@ function getOneUser($codeclient){
   return $query->fetchAll();
 
 }
-
+function addqrcode($idproduit){
+  $sql = " UPDATE `all5sport`.`produits` SET `qrcode` = '' WHERE (`reference_produit` = '$idproduit');"; 
+  $query =  $this->bdd->prepare($sql);
+  $query->execute();
+  return $query->fetchAll();
+}
 
 
 
@@ -133,7 +138,7 @@ function getOneUser($codeclient){
          $query1->execute(array(  ":idproduit" => "$idproduit",
                                     ":codeclient"=>"$codeclient",
                                     ":dateI" => $d->format("Y-m-d H:i:s"),
-                                    ":prix"=>$prixproduit,
+                                    ":prix"=>$prixproduit*$qte,
                                   ":quantite"=>$qte, ));
          $query2->execute(array(  ":idproduit" => "$idproduit",
                                     ));
@@ -156,7 +161,8 @@ function getOneUser($codeclient){
                                       ":codeclient"=>"$codeclient",
                                       ":dateI" => $d->format("Y-m-d H:i:s"),
                                       ":prix"=>$prixproduit, 
-                                    ":quantite"=>$qte));
+                                      ":prix"=>$prixproduit*$qte,
+                                    "quantite"=>$qte,));
            $query2->execute(array(  ":idproduit" => "$idproduit",
                                       ));
     
