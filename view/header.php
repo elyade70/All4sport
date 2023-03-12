@@ -110,31 +110,10 @@ echo"</div>";
 
 
 ?>
-<button onclick="playAudio()" type="button">Play Audio</button>
 
         </div>
     </nav>
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">
-
-$( ".rayon").mouseover(function() {
-  $( ".ray" ).css("display","block");
-          });
-          $( ".ray").mouseout(function() {
-  $( ".ray" ).css("display","none");
-          });
-          let beat = new Audio('../view/f.mp3');
-       
-          function playAudio() { 
-            beat.play();
-} 
-
-</script>
-<script>
-  
-</script>
     <style>
 
 

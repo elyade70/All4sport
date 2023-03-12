@@ -11,19 +11,19 @@ try {
 } catch (PDOException $e) {
   echo $e->getMessage();
 }
-if(!empty($_POST["code_client"])){
+if(!empty($_POST["code_client"]) ){
     $requete = $pdo->prepare("SELECT `code_client`, `adresse`, `email`, `telephone`, `date_naissance`, `password`
      FROM `client` 
      WHERE code_client=:code_client ; ");
-   $requete->bindParam(  ":code_client",$_POST["code_client"]);
+   $requete->bindParam(  ":code_client",$_POST["code_client"], );
     $requete->execute();
+    $resultat=$requete->fetchAll();
 }else{
-    $requete = $pdo->prepare("SELECT * FROM `client`");
-    $requete->execute();
+  $resultat= "false";
 }
 
 
-$resultat=$requete->fetchAll();
+// $resultat=$requete->fetchAll();
 // var_dump($resultat);
 
 echo json_encode($resultat);
